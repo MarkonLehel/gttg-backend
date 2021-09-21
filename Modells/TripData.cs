@@ -7,7 +7,7 @@ namespace gttgBackend.Modells
 {
     public class TripData
     {
-
+        #region PlanetData
         private PlanetData? _startingPlanet = null;
         private PlanetData? _destinationPlanet = null;
         public double DistanceBetweenDestinations { get; private set; }
@@ -31,7 +31,9 @@ namespace gttgBackend.Modells
 
         #endregion
         #region Lodging
-        LodgingData currentlySelectedLodging
+        public LodgingData currentlySelectedLodging { get; set; }
+        public DateTime LodgingBookedFrom { get; set; }
+        public DateTime LodgingBookedUntil { get; set; }
         #endregion
         //Lodging
         //Travel
