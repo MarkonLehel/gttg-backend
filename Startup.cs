@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using gttgBackend.Models;
 
 namespace gttgBackend
 {
@@ -28,6 +30,10 @@ namespace gttgBackend
         {
 
             services.AddControllers();
+
+            services.AddDbContext<TripContext>(opt =>
+                                               opt.UseInMemoryDatabase("TripList"));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "gttgBackend", Version = "v1" });
