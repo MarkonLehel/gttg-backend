@@ -6,15 +6,15 @@ namespace gttgBackend.Modells
     public class TripData
     {
         #region PlanetData
-        private PlanetData? _startingPlanet = null;
-        private PlanetData? _destinationPlanet = null;
+        private PlanetData _startingPlanet = null;
+        private PlanetData _destinationPlanet = null;
         public float DistanceBetweenDestinations { get; private set; }
-        public PlanetData StartingPlanet { get { return _startingPlanet.Value; }
+        public PlanetData StartingPlanet { get { return _startingPlanet; }
             set {
                 SetStartingPlanet(value);} }
         public PlanetData DestinationPlanet
         {
-            get { return _destinationPlanet.Value; }
+            get { return _destinationPlanet; }
             set
             {
                 SetDestinationPlanet(value);
@@ -71,9 +71,9 @@ namespace gttgBackend.Modells
         }
         private void UpdateDistance()
         {
-            if (_startingPlanet.HasValue && _destinationPlanet.HasValue)
+            if (_startingPlanet != null && _destinationPlanet != null)
             {
-                DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.Value.Coordinates, _destinationPlanet.Value.Coordinates); 
+                DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.Coordinates, _destinationPlanet.Coordinates); 
             } else
             {
                 DistanceBetweenDestinations = 0;

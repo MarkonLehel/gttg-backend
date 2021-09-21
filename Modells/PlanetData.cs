@@ -1,6 +1,6 @@
 ﻿namespace gttgBackend.Modells
 {
-    public struct PlanetData
+    public class PlanetData
     {
 
 
