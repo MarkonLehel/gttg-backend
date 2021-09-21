@@ -5,6 +5,15 @@ namespace gttgBackend.Models
 {
     public class TripData
     {
+        private static int currentTripID = 0;
+
+        public int TripDataID { get; set; }
+        public TripData()
+        {
+            TripDataID = currentTripID;
+            currentTripID++;
+        }
+
         #region PlanetData
         private PlanetData? _startingPlanet = null;
         private PlanetData? _destinationPlanet = null;
