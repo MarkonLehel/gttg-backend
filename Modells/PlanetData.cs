@@ -1,17 +1,28 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace gttgBackend.Modells
+﻿namespace gttgBackend.Modells
 {
     public struct PlanetData
     {
-        public int PlanetID { get; }
-        public string PlanetName { get; set; }
-        public string PlanetDescription { get; set; }
-        public List<LodgingData> Lodgings { get; }
 
+
+        private static int currentID = 0;
+
+        public PlanetData(string planetName, string planetDescription, int population, string race, Coordinate cords)
+        {
+            Coordinates = cords;
+            PlanetID = currentID;
+            currentID++;
+            Population = population;
+            Race = race;
+            PlanetName = planetName;
+            PlanetDescription = planetDescription;
+        }
+
+        public int PlanetID { get; }
+        public Coordinate Coordinates {get;}
+        public int Population { get; }
+        public string Race { get; }
+        public string PlanetName { get; }
+        public string PlanetDescription { get; }
 
     }
 }
