@@ -50,9 +50,9 @@ namespace gttgBackend.Modells
 
         #region Travel
         public float travelTime { get; private set; }
-        public TravelType travelType { get; set; }
+        public TravelType travelType { get { return travelType; }
+            set { travelType = value; UpdateTravelData(); } }
 
-        
 
         #endregion
         //Travel
@@ -101,6 +101,12 @@ namespace gttgBackend.Modells
                 int durationInDays = (LodgingBookedUntil - LodgingBookedFrom).Days;
                 LodgingPrice = currentlySelectedLodging.Value.Price * durationInDays;
             }
+        }
+
+
+        private void UpdateTravelData()
+        {
+
         }
     }
 }
