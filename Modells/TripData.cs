@@ -44,13 +44,6 @@ namespace gttgBackend.Modells
             set { LodgingBookedUntil = LodgingBookedUntil > LodgingBookedFrom ? value: LodgingBookedUntil; 
                 UpdateLodgingPrice(); } 
         }
-        #endregion
-
-        #region TripEvents
-        public List<EventData> attendedEvents { get; } = new List<EventData>();
-        public double totalEventPrice { get; private set; }
-
-
         public float LodgingPrice { get; private set; }
         #endregion
 
