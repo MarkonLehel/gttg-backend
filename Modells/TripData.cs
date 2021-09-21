@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace gttgBackend.Modells
 {
@@ -30,12 +28,29 @@ namespace gttgBackend.Modells
 
 
         #endregion
+
         #region Lodging
-        public LodgingData currentlySelectedLodging { get; set; }
-        public DateTime LodgingBookedFrom { get; set; }
-        public DateTime LodgingBookedUntil { get; set; }
+        public LodgingData? currentlySelectedLodging { 
+            get { return currentlySelectedLodging; }
+            set { currentlySelectedLodging = value; UpdateLodgingInfo(); }
+        }
+        public DateTime LodgingBookedFrom { 
+            get { return LodgingBookedFrom; } 
+            set { LodgingBookedFrom = LodgingBookedUntil < LodgingBookedFrom ? value : LodgingBookedFrom;
+                UpdateLodgingPrice(); } 
+        }
+        public DateTime LodgingBookedUntil { 
+            get { return LodgingBookedUntil; }
+            set { LodgingBookedUntil = LodgingBookedUntil > LodgingBookedFrom ? value: LodgingBookedUntil; 
+                UpdateLodgingPrice(); } 
+        }
+
+        public float LodgingPrice { get; private set; }
         #endregion
-        //Lodging
+
+
+        
+
         //Travel
         //Price calculation
 
@@ -58,6 +73,33 @@ namespace gttgBackend.Modells
                 DistanceBetweenDestinations = 0;
             }
         }
-        
+
+        public void AddEventToTrip(EventData eventToAdd) {
+            attendedEvents.Add(eventToAdd);
+            CalculateTotalEventPrice();
+        }
+        public void RemoveEventFromTrip(EventData eventToRemove) {
+            attendedEvents.Remove(eventToRemove);
+            CalculateTotalEventPrice();
+        }
+        private void CalculateTotalEventPrice()
+        {
+            float tempEventPrice = 0;
+            foreach (EventData eventItem in attendedEvents)
+            {
+                tempEventPrice += eventItem.Price;
+            }
+            totalEventPrice = tempEventPrice;
+        }
+
+        private void UpdateLodgingInfo() {
+            UpdateLodgingPrice();
+        }
+        private void UpdateLodgingPrice() {
+            if (currentlySelectedLodging.HasValue) { 
+                int durationInDays = (LodgingBookedUntil - LodgingBookedFrom).Days;
+                LodgingPrice = currentlySelectedLodging.Value.Price * durationInDays;
+            }
+        }
     }
 }
