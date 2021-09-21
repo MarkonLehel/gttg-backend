@@ -27,6 +27,12 @@ namespace gttgBackend.Controllers
             return await _context.PLanetList.ToListAsync();
         }
 
+        //[HttpGet]
+        //public string Index()
+        //{
+        //    return "kaki";
+        //}
+
         // GET: api/Planet/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PlanetData>> GetPlanetData(int id)

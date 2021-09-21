@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
 
+
 namespace gttgBackend
 {
     public class Startup
@@ -57,9 +58,7 @@ namespace gttgBackend
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "planets",
-                    pattern: "api/{controller=Planets}/{action=Index}");
+                endpoints.MapControllers();
             });
         }
     }
