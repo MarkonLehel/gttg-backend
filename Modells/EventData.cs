@@ -6,13 +6,17 @@ namespace gttgBackend.Modells
     {
         public EventData(string eventName, string location, float price, DateTime date)
         {
+            EventID = currentEventID;
+            currentEventID++;
             EventName = eventName;
             Location = location;
             Price = price;
             Date = date;
         }
 
-        //Unique ID
+        private static int currentEventID = 0;
+
+        public int EventID { get; }
         public string EventName { get;}
         public string Location { get; }
         public float Price { get; }
