@@ -52,7 +52,9 @@ namespace gttgBackend
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                    name: "planets",
+                    pattern: "api/{controller=planet}/{action=Index}");
             });
         }
     }
