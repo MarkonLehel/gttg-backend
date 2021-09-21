@@ -21,14 +21,40 @@ namespace gttgBackend.Modells
             }
         }
         #endregion
+
         #region TripEvents
         public List<EventData> attendedEvents { get; } = new List<EventData>();
         public double totalEventPrice { get; private set; }
 
 
         #endregion
-        //Events
-        //Lodging
+
+        #region Lodging
+        public LodgingData? currentlySelectedLodging { 
+            get { return currentlySelectedLodging; }
+            set { currentlySelectedLodging = value; UpdateLodgingInfo(); }
+        }
+        public DateTime LodgingBookedFrom { 
+            get { return LodgingBookedFrom; } 
+            set { LodgingBookedFrom = LodgingBookedUntil < LodgingBookedFrom ? value : LodgingBookedFrom;
+                UpdateLodgingPrice(); } 
+        }
+        public DateTime LodgingBookedUntil { 
+            get { return LodgingBookedUntil; }
+            set { LodgingBookedUntil = LodgingBookedUntil > LodgingBookedFrom ? value: LodgingBookedUntil; 
+                UpdateLodgingPrice(); } 
+        }
+
+        public float LodgingPrice { get; private set; }
+        #endregion
+
+        #region Travel
+        public float travelTime { get; private set; }
+        public TravelType travelType { get; set; }
+
+        
+
+        #endregion
         //Travel
         //Price calculation
 
@@ -66,6 +92,15 @@ namespace gttgBackend.Modells
             }
             totalEventPrice = tempEventPrice;
         }
-        
+
+        private void UpdateLodgingInfo() {
+            UpdateLodgingPrice();
+        }
+        private void UpdateLodgingPrice() {
+            if (currentlySelectedLodging.HasValue) { 
+                int durationInDays = (LodgingBookedUntil - LodgingBookedFrom).Days;
+                LodgingPrice = currentlySelectedLodging.Value.Price * durationInDays;
+            }
+        }
     }
 }
