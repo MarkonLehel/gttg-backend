@@ -12,6 +12,7 @@ namespace gttgBackend.Modells
             Date = date;
         }
 
+        //Unique ID
         public string EventName { get;}
         public string Location { get; }
         public float Price { get; }

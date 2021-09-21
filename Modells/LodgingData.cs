@@ -10,6 +10,7 @@
             Rating = rating;
         }
 
+        //Unique ID
         public string Location { get; }
         public float Price { get; }
         public string Name { get; }

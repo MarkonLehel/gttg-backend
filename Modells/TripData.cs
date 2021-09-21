@@ -22,7 +22,20 @@ namespace gttgBackend.Modells
                 SetDestinationPlanet(value);
             }
         }
+        #endregion
 
+        #region TripEvents
+        public List<EventData> attendedEvents { get; } = new List<EventData>();
+        public double totalEventPrice { get; private set; }
+
+
+        #endregion
+        #region Lodging
+        LodgingData currentlySelectedLodging
+        #endregion
+        //Lodging
+        //Travel
+        //Price calculation
 
         public void SetStartingPlanet(PlanetData planet) {
             _startingPlanet = planet;
@@ -38,6 +51,9 @@ namespace gttgBackend.Modells
             if (_startingPlanet.HasValue && _destinationPlanet.HasValue)
             {
                 DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.Value.Coordinates, _destinationPlanet.Value.Coordinates); 
+            } else
+            {
+                DistanceBetweenDestinations = 0;
             }
         }
         
