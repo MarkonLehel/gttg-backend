@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace gttgBackend.Modells
 {
     public class TripData
     {
-
+        #region PlanetData
         private PlanetData? _startingPlanet = null;
         private PlanetData? _destinationPlanet = null;
         public double DistanceBetweenDestinations { get; private set; }
@@ -22,7 +20,17 @@ namespace gttgBackend.Modells
                 SetDestinationPlanet(value);
             }
         }
+        #endregion
+        #region TripEvents
+        public List<EventData> attendedEvents { get; } = new List<EventData>();
+        public double totalEventPrice { get; private set; }
 
+
+        #endregion
+        //Events
+        //Lodging
+        //Travel
+        //Price calculation
 
         public void SetStartingPlanet(PlanetData planet) {
             _startingPlanet = planet;
@@ -39,6 +47,24 @@ namespace gttgBackend.Modells
             {
                 DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.Value.Coordinates, _destinationPlanet.Value.Coordinates); 
             }
+        }
+
+        public void AddEventToTrip(EventData eventToAdd) {
+            attendedEvents.Add(eventToAdd);
+            CalculateTotalEventPrice();
+        }
+        public void RemoveEventFromTrip(EventData eventToRemove) {
+            attendedEvents.Remove(eventToRemove);
+            CalculateTotalEventPrice();
+        }
+        private void CalculateTotalEventPrice()
+        {
+            float tempEventPrice = 0;
+            foreach (EventData eventItem in attendedEvents)
+            {
+                tempEventPrice += eventItem.Price;
+            }
+            totalEventPrice = tempEventPrice;
         }
         
     }
