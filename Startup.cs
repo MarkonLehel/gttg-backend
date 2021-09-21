@@ -54,7 +54,7 @@ namespace gttgBackend
             {
                 endpoints.MapControllerRoute(
                     name: "planets",
-                    pattern: "api/{controller=planets}/{action=Index}");
+                    pattern: "api/{controller=Planets}/{action=Index}");
             });
         }
     }
