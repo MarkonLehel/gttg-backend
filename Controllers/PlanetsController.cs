@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace gttgBackend.Controllers
 {
-    public class PlanetController : Controller
+    public class PlanetsController : Controller
     {
         // GET: api/planets/
         public string Index()
