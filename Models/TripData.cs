@@ -63,7 +63,6 @@ namespace gttgBackend.Models
         public float TotalTravelPrice { get; private set; }
 
         #endregion
-        //Price calculation
 
         public void SetStartingPlanet(PlanetData planet) {
             _startingPlanet = planet;
