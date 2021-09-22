@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace gttgBackend.Modells
+namespace gttgBackend.Models
 {
     public class Coordinate
     {
+        private static int currentID = 0;
+
         public Coordinate(int x, int y)
         {
             X = x;
             Y = y;
+            CoordinateID = currentID;
+            currentID++;
         }
 
+        public int CoordinateID { get; set; }
         public int X { get; set; }
         public int Y { get; set; }
 

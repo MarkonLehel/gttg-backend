@@ -1,4 +1,4 @@
-﻿namespace gttgBackend.Modells
+﻿namespace gttgBackend.Models
 {
     public struct LodgingData
     {

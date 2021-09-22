@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace gttgBackend.Modells
+namespace gttgBackend.Models
 {
     public class TripData
     {

@@ -11,6 +11,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using gttgBackend.Models;
+
 
 namespace gttgBackend
 {
@@ -32,6 +35,9 @@ namespace gttgBackend
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "gttgBackend", Version = "v1" });
             });
+
+            services.AddDbContext<PlanetContext>(opt =>
+                                               opt.UseInMemoryDatabase("PlanetList"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,9 +58,7 @@ namespace gttgBackend
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllerRoute(
-                    name: "planets",
-                    pattern: "api/{controller=Planets}/{action=Index}");
+                endpoints.MapControllers();
             });
         }
     }

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace gttgBackend.Modells
+namespace gttgBackend.Models
 {
     public struct EventData
     {
