@@ -33,6 +33,10 @@ namespace gttgBackend
         {
 
             services.AddControllers();
+
+            services.AddDbContext<TripContext>(opt =>
+                                               opt.UseInMemoryDatabase("TripList"));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "gttgBackend", Version = "v1" });
