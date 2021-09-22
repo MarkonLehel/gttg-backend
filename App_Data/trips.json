@@ -1,0 +1,31 @@
+[
+  {
+    "id": "0",
+    "price": "1000",
+    "name": "Ship trip basic",
+    "lodging": {
+      "hotel_name": "Green snake motel",
+      "start_date": "2121-09-01T16:00:00Z",
+      "end_date": "2121-09-05T16:00:00Z"
+    },
+    "events": [
+      "TwiLek belly dance course",
+      "Jedi life management tips with real Jedi spirits"
+    ]
+  },
+  {
+    "id": "1",
+    "price": "2000",
+    "name": "Ship trip extended",
+    "lodging": {
+      "hotel_name": "Green snake motel",
+      "start_date": "2121-09-01T16:00:00Z",
+      "end_date": "2121-09-10T16:00:00Z"
+    },
+    "events": [
+      "TwiLek belly dance course",
+      "Jedi life management tips with real Jedi spirits",
+      "Galaxy wildlife safari"
+    ]
+  }
+]
