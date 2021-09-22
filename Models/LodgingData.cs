@@ -12,7 +12,7 @@
             Rating = rating;
         }
 
-        private static int currentLodgingID = 0;
+        private static int currentLodgingID = 1;
         public int LodgingID { get; }
         public string Location { get; }
         public float Price { get; }

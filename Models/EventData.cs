@@ -14,7 +14,7 @@ namespace gttgBackend.Models
             Date = date;
         }
 
-        private static int currentEventID = 0;
+        private static int currentEventID = 1;
 
         public int EventID { get; }
         public string EventName { get;}

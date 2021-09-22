@@ -2,7 +2,7 @@
 {
     public class PlanetData
     {
-        private static int currentID = 0;
+        private static int currentID = 1;
         public int PlanetDataID { get; set; }
 
         public PlanetData()

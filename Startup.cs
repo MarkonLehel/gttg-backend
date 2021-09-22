@@ -13,6 +13,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
+using System.Text.Json;
+using gttgBackend.Utils;
 
 
 namespace gttgBackend
@@ -43,6 +45,10 @@ namespace gttgBackend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var scope= app.ApplicationServices.CreateScope();
+            var context = scope.ServiceProvider.GetRequiredService<PlanetContext>();
+            AddDefaultData(context, "App_data/planets.json");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -60,6 +66,18 @@ namespace gttgBackend
             {
                 endpoints.MapControllers();
             });
+        }
+        private void AddDefaultData(PlanetContext context, string dataPath)
+        {
+            List<PlanetData> data = FileReader.ReadFile(dataPath);
+            foreach (PlanetData planet in data)
+            {
+                System.Diagnostics.Debug.WriteLine(planet.PlanetDataID);
+                context.Entry<PlanetData>(planet).State = EntityState.Detached;
+                context.PLanetList.Add(planet);
+            }
+
+            context.SaveChanges();
         }
     }
 }
