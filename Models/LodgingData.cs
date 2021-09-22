@@ -1,10 +1,11 @@
 ﻿namespace gttgBackend.Models
 {
-    public struct LodgingData
+    public class LodgingData
     {
-        public LodgingData(string name, string location, float price, int rating)
+        public LodgingData(int planetID,string name, string location, float price, int rating)
         {
-            LodgingID = currentLodgingID;
+            PlanetID = planetID;
+            LodgingDataID = currentLodgingID;
             currentLodgingID++;
             Location = location;
             Price = price;
@@ -12,11 +13,12 @@
             Rating = rating;
         }
 
-        private static int currentLodgingID = 0;
-        public int LodgingID { get; }
-        public string Location { get; }
-        public float Price { get; }
-        public string Name { get; }
-        public int Rating { get; }
+        private static int currentLodgingID = 1;
+        public int LodgingDataID { get; set; }
+        public int PlanetID { get; set; }
+        public string Location { get; set; }
+        public float Price { get; set; }
+        public string Name { get; set; }
+        public int Rating { get; set; }
     }
 }
