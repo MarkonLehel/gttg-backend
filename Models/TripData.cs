@@ -39,7 +39,7 @@ namespace gttgBackend.Models
         #endregion
 
         #region Lodging
-        public LodgingData? currentlySelectedLodging { 
+        public LodgingData currentlySelectedLodging { 
             get { return currentlySelectedLodging; }
             set { currentlySelectedLodging = value; UpdateLodgingInfo(); }
         }
@@ -116,9 +116,9 @@ namespace gttgBackend.Models
             UpdateLodgingPrice();
         }
         private void UpdateLodgingPrice() {
-            if (currentlySelectedLodging.HasValue) { 
+            if (currentlySelectedLodging != null) { 
                 int durationInDays = (LodgingBookedUntil - LodgingBookedFrom).Days;
-                LodgingPrice = currentlySelectedLodging.Value.Price * durationInDays;
+                LodgingPrice = currentlySelectedLodging.Price * durationInDays;
             } else
             {
                 LodgingPrice = 0;

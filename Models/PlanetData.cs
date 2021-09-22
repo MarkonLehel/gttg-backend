@@ -2,9 +2,8 @@
 {
     public class PlanetData
     {
-        //why struct?
-
-        private static int currentID = 0;
+        private static int currentID = 1;
+        public int PlanetDataID { get; set; }
 
         public PlanetData(string planetName, string planetDescription, int population, string race, Coordinate cords)
         {
@@ -17,7 +16,6 @@
             PlanetDescription = planetDescription;
         }
 
-        public int PlanetDataID { get; }
         public Coordinate Coordinates {get;}
         public int Population { get; }
         public string Race { get; }
