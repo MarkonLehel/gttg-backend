@@ -2,7 +2,7 @@
 {
     public struct PlanetData
     {
-
+        //why struct?
 
         private static int currentID = 0;
 
