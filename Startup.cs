@@ -40,6 +40,8 @@ namespace gttgBackend
 
             services.AddDbContext<PlanetContext>(opt =>
                                                opt.UseInMemoryDatabase("PlanetList"));
+            services.AddDbContext<LodgingContext>(opt =>
+                                               opt.UseInMemoryDatabase("LodgingList"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
