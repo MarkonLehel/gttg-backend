@@ -17,9 +17,9 @@ namespace gttgBackend.Models
         public int Y { get; set; }
 
 
-        public static double CalcDistance(Coordinate cordOne, Coordinate cordTwo)
+        public static float CalcDistance(Coordinate cordOne, Coordinate cordTwo)
         {
-            return Math.Sqrt(Math.Pow((cordOne.X - cordTwo.X), 2) + Math.Pow((cordOne.Y - cordTwo.Y), 2));
+            return (float) Math.Sqrt(Math.Pow((cordOne.X - cordTwo.X), 2) + Math.Pow((cordOne.Y - cordTwo.Y), 2));
         }
     }
 }

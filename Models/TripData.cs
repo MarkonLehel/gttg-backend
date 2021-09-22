@@ -15,15 +15,15 @@ namespace gttgBackend.Models
         }
 
         #region PlanetData
-        private PlanetData? _startingPlanet = null;
-        private PlanetData? _destinationPlanet = null;
-        public double DistanceBetweenDestinations { get; private set; }
-        public PlanetData StartingPlanet { get { return _startingPlanet.Value; }
+        private PlanetData _startingPlanet = null;
+        private PlanetData _destinationPlanet = null;
+        public float DistanceBetweenDestinations { get; private set; }
+        public PlanetData StartingPlanet { get { return _startingPlanet; }
             set {
                 SetStartingPlanet(value);} }
         public PlanetData DestinationPlanet
         {
-            get { return _destinationPlanet.Value; }
+            get { return _destinationPlanet; }
             set
             {
                 SetDestinationPlanet(value);
@@ -33,7 +33,7 @@ namespace gttgBackend.Models
 
         #region TripEvents
         public List<EventData> attendedEvents { get; } = new List<EventData>();
-        public double totalEventPrice { get; private set; }
+        public float totalEventPrice { get; private set; }
 
 
         #endregion
@@ -53,30 +53,35 @@ namespace gttgBackend.Models
             set { LodgingBookedUntil = LodgingBookedUntil > LodgingBookedFrom ? value: LodgingBookedUntil; 
                 UpdateLodgingPrice(); } 
         }
-
         public float LodgingPrice { get; private set; }
         #endregion
 
+        #region Travel
+        public float travelTime { get; private set; }
+        public TravelType? travelType { get { return travelType; }
+            set { travelType = value; UpdateTravelData(); } }
+        public float TotalTravelPrice { get; private set; }
 
-        
-
-        //Travel
-        //Price calculation
+        #endregion
 
         public void SetStartingPlanet(PlanetData planet) {
             _startingPlanet = planet;
             UpdateDistance();
+            UpdateTravelData();
         }
         public void SetDestinationPlanet(PlanetData planet) {
             _destinationPlanet = planet;
             UpdateDistance();
+            UpdateTravelData();
+            currentlySelectedLodging = null;
+            ResetEvents();
 
         }
         private void UpdateDistance()
         {
-            if (_startingPlanet.HasValue && _destinationPlanet.HasValue)
+            if (_startingPlanet != null && _destinationPlanet != null)
             {
-                DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.Value.Coordinates, _destinationPlanet.Value.Coordinates); 
+                DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.Coordinates, _destinationPlanet.Coordinates); 
             } else
             {
                 DistanceBetweenDestinations = 0;
@@ -89,6 +94,11 @@ namespace gttgBackend.Models
         }
         public void RemoveEventFromTrip(EventData eventToRemove) {
             attendedEvents.Remove(eventToRemove);
+            CalculateTotalEventPrice();
+        }
+        private void ResetEvents()
+        {
+            attendedEvents.Clear();
             CalculateTotalEventPrice();
         }
         private void CalculateTotalEventPrice()
@@ -108,7 +118,29 @@ namespace gttgBackend.Models
             if (currentlySelectedLodging.HasValue) { 
                 int durationInDays = (LodgingBookedUntil - LodgingBookedFrom).Days;
                 LodgingPrice = currentlySelectedLodging.Value.Price * durationInDays;
+            } else
+            {
+                LodgingPrice = 0;
             }
         }
+
+        private void UpdateTravelData()
+        {
+            if (travelType.HasValue && DistanceBetweenDestinations != 0)
+            {
+                travelTime = DistanceBetweenDestinations / travelType.Value.Price;
+                TotalTravelPrice = DistanceBetweenDestinations * travelType.Value.Price;
+            } else
+            {
+                travelTime = 0;
+                TotalTravelPrice = 0;
+            }
+        }
+
+        public float CalculateTotalTripPrice() {
+            return LodgingPrice + totalEventPrice + TotalTravelPrice;
+        }
     }
+
+    
 }
