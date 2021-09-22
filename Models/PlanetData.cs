@@ -1,6 +1,6 @@
 ﻿namespace gttgBackend.Models
 {
-    public struct PlanetData
+    public class PlanetData
     {
         private static int currentID = 1;
         public int PlanetDataID { get; set; }
@@ -8,7 +8,7 @@
         public PlanetData(string planetName, string planetDescription, int population, string race, Coordinate cords)
         {
             Coordinates = cords;
-            PlanetID = currentID;
+            PlanetDataID = currentID;
             currentID++;
             Population = population;
             Race = race;
@@ -16,7 +16,6 @@
             PlanetDescription = planetDescription;
         }
 
-        public int PlanetID { get; }
         public Coordinate Coordinates {get;}
         public int Population { get; }
         public string Race { get; }
