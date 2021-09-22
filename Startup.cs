@@ -46,14 +46,20 @@ namespace gttgBackend
                                                opt.UseInMemoryDatabase("PlanetList"));
             services.AddDbContext<LodgingContext>(opt =>
                                                opt.UseInMemoryDatabase("LodgingList"));
+            services.AddDbContext<EventContext>(opt =>
+                                              opt.UseInMemoryDatabase("EventList"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var scope= app.ApplicationServices.CreateScope();
-            var context = scope.ServiceProvider.GetRequiredService<PlanetContext>();
-            AddDefaultData(context, "App_data/planets.json");
+            var planetContext = scope.ServiceProvider.GetRequiredService<PlanetContext>();
+            //var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
+            //var eventContext = scope.ServiceProvider.GetRequiredService<EventContext>();
+            AddDefaultData(planetContext, "App_data/planets.json");
+            //AddDefaultData(eventContext, "App_data/events.json");
+            //AddDefaultData(lodgingContext, "App_data/lodgings.json");
 
             if (env.IsDevelopment())
             {
