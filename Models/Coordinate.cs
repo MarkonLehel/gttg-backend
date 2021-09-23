@@ -19,7 +19,7 @@ namespace gttgBackend.Models
 
         public static float CalcDistance(Coordinate cordOne, Coordinate cordTwo)
         {
-            return (float) Math.Sqrt(Math.Pow((cordOne.X - cordTwo.X), 2) + Math.Pow((cordOne.Y - cordTwo.Y), 2));
+            return (float)Math.Sqrt(Math.Pow((cordOne.X - cordTwo.X), 2) + Math.Pow((cordOne.Y - cordTwo.Y), 2));
         }
     }
 }

@@ -2,11 +2,11 @@
 
 namespace gttgBackend.Models
 {
-    public struct EventData
+    public class EventData
     {
         public EventData(string eventName, string location, float price, DateTime date)
         {
-            EventID = currentEventID;
+            EventDataID = currentEventID;
             currentEventID++;
             EventName = eventName;
             Location = location;
@@ -14,13 +14,13 @@ namespace gttgBackend.Models
             Date = date;
         }
 
-        private static int currentEventID = 0;
+        private static int currentEventID = 1;
 
-        public int EventID { get; }
-        public string EventName { get;}
-        public string Location { get; }
-        public float Price { get; }
-        public DateTime Date { get; }
+        public int EventDataID { get; set; }
+        public string EventName { get; set; }
+        public string Location { get; set; }
+        public float Price { get; set; }
+        public DateTime Date { get; set; }
 
     }
 }
