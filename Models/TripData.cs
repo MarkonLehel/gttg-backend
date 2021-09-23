@@ -20,13 +20,13 @@ namespace gttgBackend.Models
             TripDataID = currentTripID;
             currentTripID++;
 
-            StartingPlanet = (PlanetData)PlanetData.planetList.Where(planetToCheck => startingPlanet == planetToCheck.PlanetDataID).Single();
-            DestinationPlanet = (PlanetData)PlanetData.planetList.Where(planetToCheck => destinationPlanet == planetToCheck.PlanetDataID).Single();
-            CurrentlySelectedLodging = (LodgingData)LodgingData.lodgingList.Where(lodgingToCheck => currentlySelectedLodging == lodgingToCheck.LodgingDataID).Single();
+            StartingPlanet = PlanetData.planetList.Where(planetToCheck => startingPlanet == planetToCheck.PlanetDataID).Single();
+            DestinationPlanet = PlanetData.planetList.Where(planetToCheck => destinationPlanet == planetToCheck.PlanetDataID).Single();
+            CurrentlySelectedLodging = LodgingData.lodgingList.Where(lodgingToCheck => currentlySelectedLodging == lodgingToCheck.LodgingDataID).Single();
             LodgingBookedFrom = DateTime.Parse(lodgingBookedFrom);
             LodgingBookedUntil = DateTime.Parse(lodgingBookedUntil);
             AttendedEvents = EventData.eventList.Where(eventToCheck => events.Contains(eventToCheck.EventDataID)).ToList();
-            TravelType = (TravelType)TravelType.travelTypes.Where(travelTP => travelType == travelTP.TravelTypeID).Single();
+            TravelType = TravelType.travelTypes.Where(travelTP => travelType == travelTP.TravelTypeID).Single();
 
             Init();
         }

@@ -4,6 +4,7 @@
     "PlanetDescription": "Megacity planet. cityscape, mountains",
     "Population": 2147483647,
     "Race": "Coruscant Human",
+    "ImageName": "0_coruscant_400x400.png",
     "X": 0,
     "Y": 0
   },
@@ -12,6 +13,7 @@
     "PlanetDescription": "Not hot at all, it's very cold and snowy. tundra, ice caves, mountain ranges",
     "Population": 30000000,
     "Race": "Tauntauns",
+    "ImageName": "1_hoth_400x400.png",
     "X": 550,
     "Y": 800
   },
@@ -20,6 +22,7 @@
     "PlanetDescription": "ocean planet",
     "Population": 1000000000,
     "Race": "Kaminoians",
+    "ImageName": "2_kamino_400x400.png",
     "X": 650,
     "Y": 600
   },
@@ -28,6 +31,7 @@
     "PlanetDescription": "Forest trips",
     "Population": 30000000,
     "Race": "Jawas, Tusken Raiders",
+    "ImageName": "3_tatooine_400x400.png",
     "X": 550,
     "Y": 800
   },
@@ -36,6 +40,7 @@
     "PlanetDescription": "Forest trips",
     "Population": 200000,
     "Race": "Ewoks",
+    "ImageName": "4_endor_400x400.png",
     "X": 300,
     "Y": 200
   }
