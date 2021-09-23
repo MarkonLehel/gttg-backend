@@ -81,7 +81,7 @@ namespace gttgBackend.Models
         {
             if (_startingPlanet != null && _destinationPlanet != null)
             {
-                DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.Coordinates, _destinationPlanet.Coordinates); 
+                DistanceBetweenDestinations = Coordinate.CalcDistance(_startingPlanet.X, _startingPlanet.Y, _destinationPlanet.X, _destinationPlanet.Y); 
             } else
             {
                 DistanceBetweenDestinations = 0;
