@@ -1,7 +1,10 @@
-﻿namespace gttgBackend.Models
+﻿using System.Collections.Generic;
+
+namespace gttgBackend.Models
 {
     public class LodgingData
     {
+        public static List<LodgingData> lodgingList = new();
         public LodgingData(int planetID,string name, string location, float price, int rating)
         {
             PlanetID = planetID;
@@ -11,6 +14,7 @@
             Price = price;
             Name = name;
             Rating = rating;
+            lodgingList.Add(this);
         }
 
         private static int currentLodgingID = 1;
