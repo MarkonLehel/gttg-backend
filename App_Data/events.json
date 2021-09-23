@@ -1,4 +1,4 @@
-{
+[
   {
     "eventName": "TwiLek belly dance course",
     "location": "Endor",
@@ -17,4 +17,4 @@
     "price": 1300,
     "date": "2121-09-07T16:00:00Z"
   }
-}
+]
