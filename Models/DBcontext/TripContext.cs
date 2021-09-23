@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace gttgBackend.Models
 {
@@ -13,6 +9,6 @@ namespace gttgBackend.Models
         {
         }
 
-        public DbSet<TripData> TripItems { get; set; }
+        public DbSet<TripData> TripList { get; set; }
     }
 }

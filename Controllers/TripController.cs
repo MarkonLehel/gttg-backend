@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using gttgBackend.Models;
 
 namespace gttgBackend.Controllers
 {
@@ -12,36 +13,95 @@ namespace gttgBackend.Controllers
     [ApiController]
     public class TripController : ControllerBase
     {
-        // GET: api/<TripController>
+        private readonly TripContext _context;
+
+        public TripController(TripContext context)
+        {
+            _context = context;
+        }
+
+        // GET: api/Trip
         [HttpGet]
-        public IEnumerable<string> Get()
+        public async Task<ActionResult<IEnumerable<TripData>>> GetTripList()
         {
-            return new string[] { "value1", "value2" };
+            return await _context.TripList.ToListAsync();
         }
 
-        // GET api/<TripController>/5
+        // GET: api/Trip/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<TripData>> GetTripData(int id)
         {
-            return "value";
+            var tripData = await _context.TripList.FindAsync(id);
+
+            if (tripData == null)
+            {
+                return NotFound();
+            }
+
+            return tripData;
         }
 
-        // POST api/<TripController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<TripController>/5
+        // PUT: api/Trip/5
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> PutTripData(int id, TripData tripData)
         {
+            if (id != tripData.TripDataID)
+            {
+                return BadRequest();
+            }
+
+            _context.Entry(tripData).State = EntityState.Modified;
+
+            try
+            {
+                await _context.SaveChangesAsync();
+            }
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!TripDataExists(id))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+
+            return NoContent();
         }
 
-        // DELETE api/<TripController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        // POST: api/Trip
+        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
+        [HttpPost]
+        public async Task<ActionResult<TripData>> PostTripData(TripData tripData)
         {
+            _context.TripList.Add(tripData);
+            await _context.SaveChangesAsync();
+
+            return CreatedAtAction("GetTripData", new { id = tripData.TripDataID }, tripData);
+        }
+
+        // DELETE: api/Trip/5
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTripData(int id)
+        {
+            var tripData = await _context.TripList.FindAsync(id);
+            if (tripData == null)
+            {
+                return NotFound();
+            }
+
+            _context.TripList.Remove(tripData);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+        }
+
+        private bool TripDataExists(int id)
+        {
+            return _context.TripList.Any(e => e.TripDataID == id);
         }
     }
 }

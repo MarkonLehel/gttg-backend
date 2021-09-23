@@ -21,5 +21,9 @@ namespace gttgBackend.Models
         {
             return (float)Math.Sqrt(Math.Pow((cordOne.X - cordTwo.X), 2) + Math.Pow((cordOne.Y - cordTwo.Y), 2));
         }
+        public static float CalcDistance( int cordOneX,int cordOneY, int cordTwoX, int cordTwoY)
+        {
+            return (float)Math.Sqrt(Math.Pow((cordOneX - cordTwoX), 2) + Math.Pow((cordOneY - cordTwoY), 2));
+        }
     }
 }
