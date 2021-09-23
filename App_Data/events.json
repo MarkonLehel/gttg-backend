@@ -1,0 +1,20 @@
+{
+  {
+    "eventName": "TwiLek belly dance course",
+    "location": "Endor",
+    "price": 1000,
+    "date": "2121-09-01T16:00:00Z"
+  },
+  {
+    "eventName": "Jedi life management tips with real Jedi spirits",
+    "location": "Hoth",
+    "price": 1500,
+    "date": "2121-09-04T16:00:00Z"
+  },
+  {
+    "eventName": "Galaxy wildlife safari",
+    "location": "Kamino",
+    "price": 1300,
+    "date": "2121-09-07T16:00:00Z"
+  }
+}
