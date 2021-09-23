@@ -83,9 +83,7 @@ namespace gttgBackend
         {
             List<PlanetData> data = FileReader.ReadFile<PlanetData>(dataPath);
             foreach (PlanetData planet in data)
-            
             {
-
                 System.Diagnostics.Debug.WriteLine(planet.PlanetDataID);
                 context.Entry<PlanetData>(planet).State = EntityState.Detached;
                 context.PLanetList.Add(planet);
