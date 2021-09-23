@@ -55,11 +55,11 @@ namespace gttgBackend
         {
             var scope= app.ApplicationServices.CreateScope();
             var planetContext = scope.ServiceProvider.GetRequiredService<PlanetContext>();
-            //var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
             var eventContext = scope.ServiceProvider.GetRequiredService<EventContext>();
+            var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
             AddDefaultData(planetContext, "App_data/planets.json");
             AddDefaultData(eventContext, "App_data/events.json");
-            //AddDefaultData(lodgingContext, "App_data/lodgings.json");
+            AddDefaultData(lodgingContext, "App_data/lodgings.json");
 
             if (env.IsDevelopment())
             {
@@ -99,6 +99,17 @@ namespace gttgBackend
             {
                 context.Entry<EventData>(eventD).State = EntityState.Detached;
                 context.EventList.Add(eventD);
+            }
+            context.SaveChanges();
+        }
+
+        private void AddDefaultData(LodgingContext context, string dataPath)
+        {
+            List<LodgingData> data = FileReader.ReadFile<LodgingData>(dataPath);
+            foreach (LodgingData lodging in data)
+            {
+                context.Entry<LodgingData>(lodging).State = EntityState.Detached;
+                context.LodgingList.Add(lodging);
             }
             context.SaveChanges();
         }
