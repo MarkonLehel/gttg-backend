@@ -49,6 +49,14 @@ namespace gttgBackend
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            var scope= app.ApplicationServices.CreateScope();
+            var planetContext = scope.ServiceProvider.GetRequiredService<PlanetContext>();
+            var eventContext = scope.ServiceProvider.GetRequiredService<EventContext>();
+            var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
+            AddDefaultData(planetContext, "App_data/planets.json");
+            AddDefaultData(eventContext, "App_data/events.json");
+            AddDefaultData(lodgingContext, "App_data/lodgings.json");
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -66,6 +74,40 @@ namespace gttgBackend
             {
                 endpoints.MapControllers();
             });
+        }
+        private void AddDefaultData(PlanetContext context, string dataPath)
+        {
+            List<PlanetData> data = FileReader.ReadFile<PlanetData>(dataPath);
+            foreach (PlanetData planet in data)
+            {
+                System.Diagnostics.Debug.WriteLine(planet.PlanetDataID);
+                context.Entry<PlanetData>(planet).State = EntityState.Detached;
+                context.PLanetList.Add(planet);
+            }
+
+            context.SaveChanges();
+        }
+
+        private void AddDefaultData(EventContext context, string dataPath)
+        {
+            List<EventData> data = FileReader.ReadFile<EventData>(dataPath);
+            foreach (EventData eventD in data)
+            {
+                context.Entry<EventData>(eventD).State = EntityState.Detached;
+                context.EventList.Add(eventD);
+            }
+            context.SaveChanges();
+        }
+
+        private void AddDefaultData(LodgingContext context, string dataPath)
+        {
+            List<LodgingData> data = FileReader.ReadFile<LodgingData>(dataPath);
+            foreach (LodgingData lodging in data)
+            {
+                context.Entry<LodgingData>(lodging).State = EntityState.Detached;
+                context.LodgingList.Add(lodging);
+            }
+            context.SaveChanges();
         }
     }
 }

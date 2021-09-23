@@ -9,16 +9,15 @@ namespace gttgBackend.Utils
 {
     public class FileReader
     {
-        public static List<PlanetData> ReadFile(string filePath)
+        public static List<T> ReadFile<T>(string filePath)
         {
 
             
             string jsonString = File.ReadAllText(filePath);
             Console.WriteLine("Jsonstring: " + jsonString);
-            return JsonSerializer.Deserialize<List<PlanetData>>(jsonString);
+            return JsonSerializer.Deserialize<List<T>>(jsonString);
 
         }
-
     }
 }
 
