@@ -1,28 +1,24 @@
 ﻿namespace gttgBackend.Models
 {
-    public struct PlanetData
+    public class PlanetData
     {
-        //why struct?
-
-        private static int currentID = 0;
-
         public PlanetData(string planetName, string planetDescription, int population, string race, Coordinate cords)
         {
             Coordinates = cords;
-            PlanetID = currentID;
+            PlanetDataID = currentID;
             currentID++;
             Population = population;
             Race = race;
             PlanetName = planetName;
             PlanetDescription = planetDescription;
         }
-
-        public int PlanetID { get; }
-        public Coordinate Coordinates {get;}
-        public int Population { get; }
-        public string Race { get; }
-        public string PlanetName { get; }
-        public string PlanetDescription { get; }
+        private static int currentID = 1;
+        public int PlanetDataID { get; set; }
+        public Coordinate Coordinates { get; set; }
+        public int Population { get; set; }
+        public string Race { get; set; }
+        public string PlanetName { get; set; }
+        public string PlanetDescription { get; set; }
 
     }
 }
