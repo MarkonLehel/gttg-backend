@@ -13,6 +13,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
+using gttgBackend.Utils;
 
 namespace gttgBackend
 {
@@ -39,6 +40,8 @@ namespace gttgBackend
                                               opt.UseInMemoryDatabase("EventList"));
             services.AddDbContext<TripContext>(opt =>
                                                opt.UseInMemoryDatabase("TripList"));
+            services.AddDbContext<TravelContext>(opt =>
+                                               opt.UseInMemoryDatabase("TravelTypeList"));
 
             services.AddSwaggerGen(c =>
             {
@@ -53,9 +56,14 @@ namespace gttgBackend
             var planetContext = scope.ServiceProvider.GetRequiredService<PlanetContext>();
             var eventContext = scope.ServiceProvider.GetRequiredService<EventContext>();
             var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
+            var travelContext = scope.ServiceProvider.GetRequiredService<TravelContext>();
+            var tripContext = scope.ServiceProvider.GetRequiredService<TripContext>();
+            
             AddDefaultData(planetContext, "App_data/planets.json");
             AddDefaultData(eventContext, "App_data/events.json");
             AddDefaultData(lodgingContext, "App_data/lodgings.json");
+            AddDefaultData(travelContext, "App_data/travelTypes.json");
+            AddDefaultData(tripContext);
 
             if (env.IsDevelopment())
             {
@@ -75,13 +83,22 @@ namespace gttgBackend
                 endpoints.MapControllers();
             });
         }
+
+        private void AddDefaultData(TripContext tripContext)
+        {
+            TripData trip = new TripData(1, 2, 1, "2021-10-10", "2021-10-14", 1, new List<int>() { 1, 2 });
+            System.Diagnostics.Debug.WriteLine(trip.ToString());
+            tripContext.Add(trip);
+            tripContext.SaveChanges();
+        }
+
         private void AddDefaultData(PlanetContext context, string dataPath)
         {
             List<PlanetData> data = FileReader.ReadFile<PlanetData>(dataPath);
             foreach (PlanetData planet in data)
             {
                 System.Diagnostics.Debug.WriteLine(planet.PlanetDataID);
-                context.Entry<PlanetData>(planet).State = EntityState.Detached;
+                context.Entry(planet).State = EntityState.Detached;
                 context.PLanetList.Add(planet);
             }
 
@@ -93,8 +110,19 @@ namespace gttgBackend
             List<EventData> data = FileReader.ReadFile<EventData>(dataPath);
             foreach (EventData eventD in data)
             {
-                context.Entry<EventData>(eventD).State = EntityState.Detached;
+                context.Entry(eventD).State = EntityState.Detached;
                 context.EventList.Add(eventD);
+            }
+            context.SaveChanges();
+        }
+
+        private void AddDefaultData(TravelContext context, string dataPath)
+        {
+            List<TravelType> data = FileReader.ReadFile<TravelType>(dataPath);
+            foreach (TravelType travelType in data)
+            {
+                context.Entry(travelType).State = EntityState.Detached;
+                context.TravelTypeList.Add(travelType);
             }
             context.SaveChanges();
         }
@@ -104,7 +132,7 @@ namespace gttgBackend
             List<LodgingData> data = FileReader.ReadFile<LodgingData>(dataPath);
             foreach (LodgingData lodging in data)
             {
-                context.Entry<LodgingData>(lodging).State = EntityState.Detached;
+                context.Entry(lodging).State = EntityState.Detached;
                 context.LodgingList.Add(lodging);
             }
             context.SaveChanges();
