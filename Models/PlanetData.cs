@@ -2,8 +2,7 @@
 {
     public class PlanetData
     {
-
-        public PlanetData(string planetName, string planetDescription, int population, string race, int x, int y)
+        public PlanetData(string planetName, string planetDescription, int population, string race, int x,int y)
         {
             X = x;
             Y = y;
@@ -19,6 +18,8 @@
         public int Y { get; set; }
         private static int currentID = 1;
         public int PlanetDataID { get; set; }
+        public int X { get; set; }
+        public int Y { get; set; }
         public int Population { get; set; }
         public string Race { get; set; }
         public string PlanetName { get; set; }
