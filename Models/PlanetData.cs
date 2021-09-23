@@ -14,8 +14,6 @@
             PlanetDescription = planetDescription;
         }
 
-        public int X { get; set; }
-        public int Y { get; set; }
         private static int currentID = 1;
         public int PlanetDataID { get; set; }
         public int X { get; set; }
