@@ -96,7 +96,6 @@ namespace gttgBackend.Models
         public float TotalTravelPrice { get; private set; }
 
         #endregion
-        //Price calculation
 
         public void SetStartingPlanet(PlanetData planet) {
             _startingPlanet = planet;
@@ -174,7 +173,7 @@ namespace gttgBackend.Models
         public float CalculateTotalTripPrice() {
             return LodgingPrice + TotalEventPrice + TotalTravelPrice;
         }
-    public string ToString()
+    public override string ToString()
     {
             return $"{StartingPlanet},{DestinationPlanet}, {CurrentlySelectedLodging}, {LodgingBookedFrom}, {LodgingBookedUntil}, {TravelType}, {AttendedEvents.Count()}";
     }

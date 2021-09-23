@@ -64,6 +64,7 @@ namespace gttgBackend
             AddDefaultData(lodgingContext, "App_data/lodgings.json");
             AddDefaultData(travelContext, "App_data/travelTypes.json");
             AddDefaultData(tripContext);
+            Console.WriteLine("Yeet");
 
             if (env.IsDevelopment())
             {
