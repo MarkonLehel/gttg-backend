@@ -1,37 +1,37 @@
 [
   {
-    "planetID": 0,
-    "name": "Finest 1313",
-    "location": "Level 1313",
-    "price": 100,
-    "rating": 1
+    "PlanetID": 0,
+    "Name": "Finest 1313",
+    "Location": "Level 1313",
+    "Price": 100,
+    "Rating": 1
   },
   {
-    "planetID": 1,
-    "name": "Hoth Hut",
-    "location": "Echo Base",
-    "price": 500,
-    "rating": 4
+    "PlanetID": 1,
+    "Name": "Hoth Hut",
+    "Location": "Echo Base",
+    "Price": 500,
+    "Rating": 4
   },
   {
-    "planetID": 2,
-    "name": "Tipoca Cloning Center Hotel and spa",
-    "location": "Tipoca City",
-    "price": 100,
-    "rating": 3
+    "PlanetID": 2,
+    "Name": "Tipoca Cloning Center Hotel and spa",
+    "Location": "Tipoca City",
+    "Price": 100,
+    "Rating": 3
   },
   {
-    "planetID": 3,
-    "name": "Hutt hotel",
-    "location": "Mos Eisley",
-    "price": 200,
-    "rating": 2
+    "PlanetID": 3,
+    "Name": "Hutt hotel",
+    "Location": "Mos Eisley",
+    "Price": 200,
+    "Rating": 2
   },
   {
-    "planetID": 4,
-    "name": "The biggest tree",
-    "location": "Bright Tree Village",
-    "price": 50,
-    "rating": 5
+    "PlanetID": 4,
+    "Name": "The biggest tree",
+    "Location": "Bright Tree Village",
+    "Price": 50,
+    "Rating": 5
   }
 ]

@@ -41,10 +41,5 @@ namespace gttgBackend.Controllers
 
             return planetData;
         }
-
-        private bool PlanetDataExists(int id)
-        {
-            return _context.PLanetList.Any(data => data.PlanetDataID == id);
-        }
     }
 }

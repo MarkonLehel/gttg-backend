@@ -31,7 +31,7 @@ namespace gttgBackend.Controllers
         [HttpGet("{planetID}")]
         public async Task<ActionResult<IEnumerable<LodgingData>>> GetLodgingData(int planetID)
         {
-            List<LodgingData> returnList = new List<LodgingData>();
+            List<LodgingData> returnList = new();
 
 
             List<LodgingData> lodgingList = await _context.LodgingList.ToListAsync();
@@ -45,10 +45,6 @@ namespace gttgBackend.Controllers
             }
 
             return returnList;
-        }
-        private bool LodgingDataExists(int id)
-        {
-            return _context.LodgingList.Any(e => e.LodgingDataID == id);
         }
     }
 }

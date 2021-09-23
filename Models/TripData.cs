@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace gttgBackend.Models
 {
@@ -13,6 +14,32 @@ namespace gttgBackend.Models
             TripDataID = currentTripID;
             currentTripID++;
         }
+
+        public TripData(int startingPlanet, int destinationPlanet, int currentlySelectedLodging,string lodgingBookedFrom, string lodgingBookedUntil, int travelType, List<int> events)
+        {
+            TripDataID = currentTripID;
+            currentTripID++;
+
+            StartingPlanet = (PlanetData)PlanetData.planetList.Where(planetToCheck => startingPlanet == planetToCheck.PlanetDataID).Single();
+            DestinationPlanet = (PlanetData)PlanetData.planetList.Where(planetToCheck => destinationPlanet == planetToCheck.PlanetDataID).Single();
+            CurrentlySelectedLodging = (LodgingData)LodgingData.lodgingList.Where(lodgingToCheck => currentlySelectedLodging == lodgingToCheck.LodgingDataID).Single();
+            LodgingBookedFrom = DateTime.Parse(lodgingBookedFrom);
+            LodgingBookedUntil = DateTime.Parse(lodgingBookedUntil);
+            AttendedEvents = EventData.eventList.Where(eventToCheck => events.Contains(eventToCheck.EventDataID)).ToList();
+            TravelType = (TravelType)TravelType.travelTypes.Where(travelTP => travelType == travelTP.TravelTypeID).Single();
+
+            Init();
+        }
+
+        private void Init()
+        {
+            UpdateDistance();
+            CalculateTotalEventPrice();
+            UpdateLodgingInfo();
+            UpdateTravelData();
+        }
+
+
 
         #region PlanetData
         private PlanetData _startingPlanet = null;
@@ -32,34 +59,40 @@ namespace gttgBackend.Models
         #endregion
 
         #region TripEvents
-        public List<EventData> attendedEvents { get; } = new List<EventData>();
-        public float totalEventPrice { get; private set; }
+        public List<EventData> AttendedEvents { get; } = new List<EventData>();
+        public float TotalEventPrice { get; private set; }
 
 
         #endregion
 
         #region Lodging
-        public LodgingData currentlySelectedLodging { 
-            get { return currentlySelectedLodging; }
-            set { currentlySelectedLodging = value; UpdateLodgingInfo(); }
+        private LodgingData _currentlySelectedLodging;
+        public LodgingData CurrentlySelectedLodging { 
+            get => _currentlySelectedLodging;
+            set { _currentlySelectedLodging = value; UpdateLodgingInfo(); }
         }
-        public DateTime LodgingBookedFrom { 
-            get { return LodgingBookedFrom; } 
-            set { LodgingBookedFrom = LodgingBookedUntil < LodgingBookedFrom ? value : LodgingBookedFrom;
+        private DateTime _lodgingBookedFrom;
+        public DateTime LodgingBookedFrom {
+            get => _lodgingBookedFrom; 
+            set {
+                _lodgingBookedFrom = value;
                 UpdateLodgingPrice(); } 
         }
-        public DateTime LodgingBookedUntil { 
-            get { return LodgingBookedUntil; }
-            set { LodgingBookedUntil = LodgingBookedUntil > LodgingBookedFrom ? value: LodgingBookedUntil; 
+        private DateTime _lodgingBookedUntil;
+        public DateTime LodgingBookedUntil {
+            get => _lodgingBookedUntil;
+            set {
+                _lodgingBookedUntil = value;
                 UpdateLodgingPrice(); } 
         }
         public float LodgingPrice { get; private set; }
         #endregion
 
         #region Travel
-        public float travelTime { get; private set; }
-        public TravelType? travelType { get { return travelType; }
-            set { travelType = value; UpdateTravelData(); } }
+        public float TravelTime { get; private set; }
+        private TravelType _travelType;
+        public TravelType TravelType { get => _travelType; 
+            set { _travelType = value; UpdateTravelData(); } }
         public float TotalTravelPrice { get; private set; }
 
         #endregion
@@ -73,7 +106,7 @@ namespace gttgBackend.Models
             _destinationPlanet = planet;
             UpdateDistance();
             UpdateTravelData();
-            currentlySelectedLodging = null;
+            CurrentlySelectedLodging = null;
             ResetEvents();
 
         }
@@ -89,35 +122,35 @@ namespace gttgBackend.Models
         }
 
         public void AddEventToTrip(EventData eventToAdd) {
-            attendedEvents.Add(eventToAdd);
+            AttendedEvents.Add(eventToAdd);
             CalculateTotalEventPrice();
         }
         public void RemoveEventFromTrip(EventData eventToRemove) {
-            attendedEvents.Remove(eventToRemove);
+            AttendedEvents.Remove(eventToRemove);
             CalculateTotalEventPrice();
         }
         private void ResetEvents()
         {
-            attendedEvents.Clear();
+            AttendedEvents.Clear();
             CalculateTotalEventPrice();
         }
         private void CalculateTotalEventPrice()
         {
             float tempEventPrice = 0;
-            foreach (EventData eventItem in attendedEvents)
+            foreach (EventData eventItem in AttendedEvents)
             {
                 tempEventPrice += eventItem.Price;
             }
-            totalEventPrice = tempEventPrice;
+            TotalEventPrice = tempEventPrice;
         }
 
         private void UpdateLodgingInfo() {
             UpdateLodgingPrice();
         }
         private void UpdateLodgingPrice() {
-            if (currentlySelectedLodging != null) { 
+            if (CurrentlySelectedLodging != null) { 
                 int durationInDays = (LodgingBookedUntil - LodgingBookedFrom).Days;
-                LodgingPrice = currentlySelectedLodging.Price * durationInDays;
+                LodgingPrice = CurrentlySelectedLodging.Price * durationInDays;
             } else
             {
                 LodgingPrice = 0;
@@ -126,21 +159,24 @@ namespace gttgBackend.Models
 
         private void UpdateTravelData()
         {
-            if (travelType.HasValue && DistanceBetweenDestinations != 0)
+            if (TravelType != null && DistanceBetweenDestinations != 0)
             {
-                travelTime = DistanceBetweenDestinations / travelType.Value.Price;
-                TotalTravelPrice = DistanceBetweenDestinations * travelType.Value.Price;
+                TravelTime = DistanceBetweenDestinations / TravelType.Price;
+                TotalTravelPrice = DistanceBetweenDestinations * TravelType.Price;
             } else
             {
-                travelTime = 0;
+                TravelTime = 0;
                 TotalTravelPrice = 0;
             }
         }
 
         public float CalculateTotalTripPrice() {
-            return LodgingPrice + totalEventPrice + TotalTravelPrice;
+            return LodgingPrice + TotalEventPrice + TotalTravelPrice;
         }
+    public override string ToString()
+    {
+            return $"{StartingPlanet},{DestinationPlanet}, {CurrentlySelectedLodging}, {LodgingBookedFrom}, {LodgingBookedUntil}, {TravelType}, {AttendedEvents.Count()}";
     }
+    } 
 
-    
 }

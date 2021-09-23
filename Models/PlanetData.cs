@@ -1,7 +1,10 @@
-﻿namespace gttgBackend.Models
+﻿using System.Collections.Generic;
+
+namespace gttgBackend.Models
 {
     public class PlanetData
     {
+        public static List<PlanetData> planetList = new();
         public PlanetData(string planetName, string planetDescription, int population, string race, int x,int y)
         {
             X = x;
@@ -12,7 +15,9 @@
             Race = race;
             PlanetName = planetName;
             PlanetDescription = planetDescription;
+            planetList.Add(this);
         }
+
         private static int currentID = 1;
         public int PlanetDataID { get; set; }
         public int X { get; set; }

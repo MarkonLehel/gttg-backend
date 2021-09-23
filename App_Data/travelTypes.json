@@ -1,0 +1,13 @@
+[
+  {
+    "Name": "FTL",
+    "Speed": 100,
+    "Price": 500
+  },
+  {
+    "Name": "Hybernation",
+    "Speed": 10,
+    "Price": 200
+  }
+
+]
