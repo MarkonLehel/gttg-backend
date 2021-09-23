@@ -19,6 +19,9 @@ namespace gttgBackend
 {
     public class Startup
     {
+
+        readonly string MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -32,6 +35,14 @@ namespace gttgBackend
 
             services.AddControllers();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: MyAllowSpecificOrigins,
+                                  builder =>
+                                  {
+                                      builder.WithOrigins("http://localhost:3000");
+                                  });
+            });
             services.AddDbContext<PlanetContext>(opt =>
                                               opt.UseInMemoryDatabase("PlanetList"));
             services.AddDbContext<LodgingContext>(opt =>
@@ -79,10 +90,16 @@ namespace gttgBackend
 
             app.UseAuthorization();
 
+            app.UseCors(MyAllowSpecificOrigins);
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
             });
+
+       
+            app.UseHttpsRedirection();
+
         }
 
         private void AddDefaultData(TripContext tripContext)
