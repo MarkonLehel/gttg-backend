@@ -69,18 +69,17 @@ namespace gttgBackend
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var scope= app.ApplicationServices.CreateScope();
-            var planetContext = scope.ServiceProvider.GetRequiredService<PlanetContext>();
-            var eventContext = scope.ServiceProvider.GetRequiredService<EventContext>();
-            var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
-            var travelContext = scope.ServiceProvider.GetRequiredService<TravelContext>();
-            var tripContext = scope.ServiceProvider.GetRequiredService<TripContext>();
+            //var planetContext = scope.ServiceProvider.GetRequiredService<PlanetContext>();
+            //var eventContext = scope.ServiceProvider.GetRequiredService<EventContext>();
+            //var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
+            //var travelContext = scope.ServiceProvider.GetRequiredService<TravelContext>();
+            //var tripContext = scope.ServiceProvider.GetRequiredService<TripContext>();
             
-            AddDefaultData(planetContext, "App_data/planets.json");
-            AddDefaultData(eventContext, "App_data/events.json");
-            AddDefaultData(lodgingContext, "App_data/lodgings.json");
-            AddDefaultData(travelContext, "App_data/travelTypes.json");
-            AddDefaultData(tripContext);
-            Console.WriteLine("Yeet");
+            //AddDefaultData(planetContext, "App_data/planets.json");
+            //AddDefaultData(eventContext, "App_data/events.json");
+            //AddDefaultData(lodgingContext, "App_data/lodgings.json");
+            //AddDefaultData(travelContext, "App_data/travelTypes.json");
+            //AddDefaultData(tripContext);
 
             if (env.IsDevelopment())
             {
