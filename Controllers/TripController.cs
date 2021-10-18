@@ -36,6 +36,7 @@ namespace gttgBackend.Controllers
         // POST: api/Trip
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        //TODO
         public async Task<ActionResult<TripData>> PostTripData(TripData tripData)
         {
             System.Diagnostics.Debug.WriteLine("Getting post: " + tripData);

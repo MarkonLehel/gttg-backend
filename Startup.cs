@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
 using gttgBackend.Utils;
+using gttgBackend.Models.Interfaces;
 
 namespace gttgBackend
 {
@@ -43,16 +44,20 @@ namespace gttgBackend
                                       builder.WithOrigins("http://localhost:3000");
                                   });
             });
-            services.AddDbContext<PlanetContext>(opt =>
-                                              opt.UseInMemoryDatabase("PlanetList"));
-            services.AddDbContext<LodgingContext>(opt =>
-                                               opt.UseInMemoryDatabase("LodgingList"));
-            services.AddDbContext<EventContext>(opt =>
-                                              opt.UseInMemoryDatabase("EventList"));
-            services.AddDbContext<TripContext>(opt =>
-                                               opt.UseInMemoryDatabase("TripList"));
-            services.AddDbContext<TravelContext>(opt =>
-                                               opt.UseInMemoryDatabase("TravelTypeList"));
+
+            services.AddDbContextPool<AppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+
+            services.AddScoped<IPlanetDataRepository, SQLPlanetDataRepository>();
+            //services.AddDbContext<PlanetContext>(opt =>
+            //                                  opt.UseInMemoryDatabase("PlanetList"));
+            //services.AddDbContext<LodgingContext>(opt =>
+            //                                   opt.UseInMemoryDatabase("LodgingList"));
+            //services.AddDbContext<EventContext>(opt =>
+            //                                  opt.UseInMemoryDatabase("EventList"));
+            //services.AddDbContext<TripContext>(opt =>
+            //                                   opt.UseInMemoryDatabase("TripList"));
+            //services.AddDbContext<TravelContext>(opt =>
+            //                                   opt.UseInMemoryDatabase("TravelTypeList"));
 
             services.AddSwaggerGen(c =>
             {
