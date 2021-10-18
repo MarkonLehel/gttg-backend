@@ -48,6 +48,7 @@ namespace gttgBackend
             services.AddDbContextPool<AppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
 
             services.AddScoped<IPlanetDataRepository, SQLPlanetDataRepository>();
+            services.AddScoped<ILodgingDataRepository, SQLLodgingDataRepository>();
             //services.AddDbContext<PlanetContext>(opt =>
             //                                  opt.UseInMemoryDatabase("PlanetList"));
             //services.AddDbContext<LodgingContext>(opt =>
