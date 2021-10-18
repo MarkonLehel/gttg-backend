@@ -42,9 +42,11 @@ namespace gttgBackend.Controllers
             List<TripData> dataInList = _context.TripList.ToList();
 
             if (dataInList.Count == 0) { 
-            _context.TripList.Add(tripData);
+            await _context.TripList.AddAsync(tripData);
+                _context.Entry(tripData).State = EntityState.Added;
             } else {
                 _context.TripList.Update(tripData);
+                _context.Entry(tripData).State = EntityState.Modified;
             }
             await _context.SaveChangesAsync();
 
