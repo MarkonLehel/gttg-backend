@@ -8,17 +8,6 @@ namespace gttgBackend.Models.Extensions
         {
             modelBuilder.Entity<PlanetData>().HasData(
                 new PlanetData("Planet1", "First planet in DB", 2, "F1", "Anonym", 10, 50)
-                //new PlanetData
-                //{
-                //    PlanetDataID = 1,
-                //    PlanetName = "Planet1",
-                //    PlanetDescription = "First planet in DB",
-                //    Population = 2,
-                //    Race = "F1",
-                //    ImageName = "Anonym",
-                //    X = 10,
-                //    Y = 50
-                //}
             );
         }
     }
