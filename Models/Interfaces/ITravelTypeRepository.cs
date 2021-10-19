@@ -6,7 +6,7 @@ namespace gttgBackend.Models.Interfaces
 {
     public interface ITravelTypeRepository
     {
-        Task<ActionResult<TravelType>> GetLodgingById(int id);
-        Task<ActionResult<IEnumerable<TravelType>>> GetAllLodgings();
+        Task<ActionResult<TravelType>> GetTravelTypeById(int id);
+        Task<ActionResult<IEnumerable<TravelType>>> GetAllTravelTypes();
     }
 }

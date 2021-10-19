@@ -14,12 +14,12 @@ namespace gttgBackend.Models.Interfaces.SQL
         {
             this.context = context;
         }
-        public async Task<ActionResult<IEnumerable<TravelType>>> GetAllLodgings()
+        public async Task<ActionResult<IEnumerable<TravelType>>> GetAllTravelTypes()
         {
             return await context.TravelTypeList.ToListAsync();
         }
 
-        public async Task<ActionResult<TravelType>> GetLodgingById(int id)
+        public async Task<ActionResult<TravelType>> GetTravelTypeById(int id)
         {
             return await context.TravelTypeList.FindAsync(id);
         }

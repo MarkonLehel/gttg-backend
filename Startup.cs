@@ -15,6 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
 using gttgBackend.Utils;
 using gttgBackend.Models.Interfaces;
+using gttgBackend.Models.Interfaces.SQL;
 
 namespace gttgBackend
 {
@@ -49,6 +50,7 @@ namespace gttgBackend
 
             services.AddScoped<IPlanetDataRepository, SQLPlanetDataRepository>();
             services.AddScoped<ILodgingDataRepository, SQLLodgingDataRepository>();
+            services.AddScoped<IEventDataRepository, SQLEventDataRepository>();
             //services.AddDbContext<PlanetContext>(opt =>
             //                                  opt.UseInMemoryDatabase("PlanetList"));
             //services.AddDbContext<LodgingContext>(opt =>
@@ -70,6 +72,7 @@ namespace gttgBackend
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             var scope= app.ApplicationServices.CreateScope();
+
             //var planetContext = scope.ServiceProvider.GetRequiredService<PlanetContext>();
             //var eventContext = scope.ServiceProvider.GetRequiredService<EventContext>();
             //var lodgingContext = scope.ServiceProvider.GetRequiredService<LodgingContext>();
@@ -128,7 +131,7 @@ namespace gttgBackend
             context.SaveChanges();
         }
 
-        private void AddDefaultData(EventContext context, string dataPath)
+        private void AddDefaultData(IEventContextDepository context, string dataPath)
         {
             List<EventData> data = FileReader.ReadFile<EventData>(dataPath);
             foreach (EventData eventD in data)

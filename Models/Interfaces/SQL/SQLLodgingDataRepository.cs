@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace gttgBackend.Models.Interfaces
+namespace gttgBackend.Models.Interfaces.SQL
 {
     public class SQLLodgingDataRepository : ILodgingDataRepository
     {

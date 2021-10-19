@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace gttgBackend.Models.Interfaces.SQL
+namespace gttgBackend.Models.Interfaces
 {
-    interface IEventDataRepository
+    public interface IEventDataRepository
     {
-        Task<ActionResult<EventData>> GetLodgingById(int id);
-        Task<ActionResult<IEnumerable<EventData>>> GetAllLodgings();
+        Task<ActionResult<EventData>> GetEventById(int id);
+        Task<ActionResult<IEnumerable<EventData>>> GetAllEvents();
     }
 }

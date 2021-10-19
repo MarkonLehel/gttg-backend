@@ -2,9 +2,9 @@
 
 namespace gttgBackend.Models
 {
-    public class EventContext : DbContext
+    public class IEventContextDepository : DbContext
     {
-        public EventContext(DbContextOptions<EventContext> options)
+        public IEventContextDepository(DbContextOptions<IEventContextDepository> options)
             : base(options)
         {
         }
