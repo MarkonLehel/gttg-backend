@@ -24,13 +24,19 @@ namespace gttgBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TripData>>> GetTripList()
         {
-            var result = await _context.TripList.ToListAsync();
+            var result = await _context.TripList
+                .Include(e => e.StartingPlanet)
+                .Include(e => e.DestinationPlanet)
+                .Include(e => e.CurrentlySelectedLodging)
+                .Include(e => e.TravelType)
+                .ToListAsync();
             return result;
         }
 
         // POST: api/Trip
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
+        //TODO
         public async Task<ActionResult<TripData>> PostTripData(TripData tripData)
         {
             System.Diagnostics.Debug.WriteLine("Getting post: " + tripData);

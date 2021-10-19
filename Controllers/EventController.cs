@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
+using gttgBackend.Models.Interfaces;
+using System.Threading.Tasks;
 
 namespace gttgBackend.Controllers
 {
@@ -13,9 +10,9 @@ namespace gttgBackend.Controllers
     [ApiController]
     public class EventController : ControllerBase
     {
-        private readonly EventContext _context;
+        private readonly IEventDataRepository _context;
 
-        public EventController(EventContext context)
+        public EventController(IEventDataRepository context)
         {
             _context = context;
         }
@@ -24,18 +21,17 @@ namespace gttgBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<EventData>>> GetEventList()
         {
-            return await _context.EventList.ToListAsync();
+            return await _context.GetAllEvents();
         }
 
         // GET: api/Event/5
         [HttpGet("{planetID}")]
-        public async Task<ActionResult<IEnumerable<EventData>>> GetEventData(int planetID)
+        public async Task<ActionResult<IEnumerable<EventData>>> GetEventDataForPlanet(int planetID)
         {
-            List<EventData> returnList = new List<EventData>();
+            List<EventData> returnList = new();
 
-
-            List<EventData> eventList = await _context.EventList.ToListAsync();
-
+            ActionResult<IEnumerable<EventData>> actionResult = await _context.GetAllEvents();
+            IEnumerable<EventData> eventList = actionResult.Value;
             foreach (EventData planetEvent in eventList)
             {
                 if (planetEvent.EventDataID == planetID)
@@ -43,13 +39,7 @@ namespace gttgBackend.Controllers
                     returnList.Add(planetEvent);
                 }
             }
-
             return returnList;
-        }
-
-        private bool EventDataExists(int id)
-        {
-            return _context.EventList.Any(e => e.EventDataID == id);
         }
     }
 }

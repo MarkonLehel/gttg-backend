@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using gttgBackend.Models.Interfaces;
 using gttgBackend.Models;
 
 namespace gttgBackend.Controllers
@@ -13,9 +14,9 @@ namespace gttgBackend.Controllers
     [ApiController]
     public class TravelTypesController : ControllerBase
     {
-        private readonly TravelContext _context;
+        private readonly ITravelTypeRepository _context;
 
-        public TravelTypesController(TravelContext context)
+        public TravelTypesController(ITravelTypeRepository context)
         {
             _context = context;
         }
@@ -24,14 +25,14 @@ namespace gttgBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<TravelType>>> GetTravelTypeList()
         {
-            return await _context.TravelTypeList.ToListAsync();
+            return await _context.GetAllTravelTypes();
         }
 
         // GET: api/TravelTypes/5
         [HttpGet("{id}")]
         public async Task<ActionResult<TravelType>> GetTravelType(int id)
         {
-            var travelType = await _context.TravelTypeList.FindAsync(id);
+            var travelType = await _context.GetTravelTypeById(id);
 
             if (travelType == null)
             {

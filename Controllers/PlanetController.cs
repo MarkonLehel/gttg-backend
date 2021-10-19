@@ -1,12 +1,8 @@
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
-using Microsoft.AspNetCore.Cors;
+using gttgBackend.Models.Interfaces;
 
 namespace gttgBackend.Controllers
 {
@@ -14,9 +10,9 @@ namespace gttgBackend.Controllers
     [ApiController]
     public class PlanetController : ControllerBase
     {
-        private readonly PlanetContext _context;
+        private readonly IPlanetDataRepository _context;
 
-        public PlanetController(PlanetContext context)
+        public PlanetController(IPlanetDataRepository context)
         {
             _context = context;
         }
@@ -25,14 +21,14 @@ namespace gttgBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlanetData>>> GetPLanetList()
         {
-            return await _context.PLanetList.ToListAsync();
+            return await _context.GetAllPlanets();
         }
 
         // GET: api/Planet/5
         [HttpGet("{id}")]
         public async Task<ActionResult<PlanetData>> GetPlanetData(int id)
         {
-            var planetData = await _context.PLanetList.FindAsync(id);
+            var planetData = await _context.GetPlanetById(id);
 
             if (planetData == null)
             {

@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
+using gttgBackend.Models.Interfaces;
 
 namespace gttgBackend.Controllers
 {
@@ -13,9 +10,9 @@ namespace gttgBackend.Controllers
     [ApiController]
     public class LodgingController : ControllerBase
     {
-        private readonly LodgingContext _context;
+        private readonly ILodgingDataRepository _context;
 
-        public LodgingController(LodgingContext context)
+        public LodgingController(ILodgingDataRepository context)
         {
             _context = context;
         }
@@ -24,17 +21,17 @@ namespace gttgBackend.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<LodgingData>>> GetLodgingList()
         {
-            return await _context.LodgingList.ToListAsync();
+            return await _context.GetAllLodgings();
         }
 
         // GET: api/Lodging/5
         [HttpGet("{planetID}")]
-        public async Task<ActionResult<IEnumerable<LodgingData>>> GetLodgingData(int planetID)
+        public async Task<ActionResult<IEnumerable<LodgingData>>> GetLodgingDataForPlanet(int planetID)
         {
             List<LodgingData> returnList = new();
 
-
-            List<LodgingData> lodgingList = await _context.LodgingList.ToListAsync();
+            ActionResult<IEnumerable<LodgingData>> actionResult = await _context.GetAllLodgings();
+            IEnumerable<LodgingData> lodgingList = actionResult.Value;
 
             foreach (LodgingData lodging in lodgingList)
             {
@@ -43,7 +40,6 @@ namespace gttgBackend.Controllers
                     returnList.Add(lodging);
                 }
             }
-
             return returnList;
         }
     }
