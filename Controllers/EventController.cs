@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using Microsoft.AspNetCore.Http;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using gttgBackend.Models;
 using gttgBackend.Models.Interfaces;
 using System.Threading.Tasks;
@@ -30,12 +26,12 @@ namespace gttgBackend.Controllers
 
         // GET: api/Event/5
         [HttpGet("{planetID}")]
-        public ActionResult<IEnumerable<EventData>> GetEventData(int planetID)
+        public async Task<ActionResult<IEnumerable<EventData>>> GetEventDataForPlanet(int planetID)
         {
             List<EventData> returnList = new();
 
-
-            IEnumerable<EventData> eventList = _context.GetAllEvents().Result.Value;
+            ActionResult<IEnumerable<EventData>> actionResult = await _context.GetAllEvents();
+            IEnumerable<EventData> eventList = actionResult.Value;
             foreach (EventData planetEvent in eventList)
             {
                 if (planetEvent.EventDataID == planetID)
@@ -43,7 +39,6 @@ namespace gttgBackend.Controllers
                     returnList.Add(planetEvent);
                 }
             }
-
             return returnList;
         }
     }
