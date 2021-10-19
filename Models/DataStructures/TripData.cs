@@ -27,7 +27,7 @@ namespace gttgBackend.Models
             LodgingBookedUntil = DateTime.Parse(lodgingBookedUntil);
             AttendedEvents = EventData.eventList.Where(eventToCheck => events.Contains(eventToCheck.EventDataID)).ToList();
             TravelType = TravelType.travelTypes.Where(travelTP => travelType == travelTP.TravelTypeID).Single();
-
+            UserID = 0;
             Init();
         }
 
@@ -95,6 +95,11 @@ namespace gttgBackend.Models
             set { _travelType = value; UpdateTravelData(); } }
         public float TotalTravelPrice { get; private set; }
 
+        #endregion
+
+        #region user
+
+        public int UserID { get; private set; }
         #endregion
 
         public void SetStartingPlanet(PlanetData planet) {
