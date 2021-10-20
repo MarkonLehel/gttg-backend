@@ -17,10 +17,18 @@ namespace gttgBackendTests
         }
 
         [Test]
-        public void TestPlanetControllerConstructor()
+        public void TestPlanetControllerConstructorShouldReturnNotNull()
         {
             PlanetController planetController = new PlanetController(planetContext);
             Assert.IsNotNull(planetController);
+        }
+
+        [Test]
+        public void TestGetPlanetListShouldReturnNotNull()
+        {
+            PlanetController planetController = new PlanetController(planetContext);
+            var planets = planetController.GetPLanetList();
+            Assert.IsNotNull(planets);
         }
     }
 }
