@@ -9,24 +9,24 @@ namespace gttgBackendTests
     public class PlanetControllerTests
     {
         IPlanetDataRepository planetContext;
+        PlanetController planetController;
 
         [SetUp]
         public void Setup()
         {
             planetContext = Substitute.For<IPlanetDataRepository>();
+            planetController = new PlanetController(planetContext);
         }
 
         [Test]
         public void TestPlanetControllerConstructorShouldReturnNotNull()
         {
-            PlanetController planetController = new PlanetController(planetContext);
             Assert.IsNotNull(planetController);
         }
 
         [Test]
         public void TestGetPlanetListShouldReturnNotNull()
         {
-            PlanetController planetController = new PlanetController(planetContext);
             var planets = planetController.GetPLanetList();
             Assert.IsNotNull(planets);
         }
@@ -34,7 +34,6 @@ namespace gttgBackendTests
         [Test]
         public void TestGetPlanetDataShouldReturnNotNull()
         {
-            PlanetController planetController = new PlanetController(planetContext);
             var planet = planetController.GetPLanetList();
             Assert.IsNotNull(planet);
         }
