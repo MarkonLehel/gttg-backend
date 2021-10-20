@@ -46,21 +46,26 @@ namespace gttgBackend
                                   });
             });
 
-            services.AddDbContextPool<AppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
+            if (Configuration["DaoConfig"] is "Database")
+            {
+                services.AddDbContext<AppDBContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DBConnection")));
 
-            services.AddScoped<IPlanetDataRepository, SQLPlanetDataRepository>();
-            services.AddScoped<ILodgingDataRepository, SQLLodgingDataRepository>();
-            services.AddScoped<IEventDataRepository, SQLEventDataRepository>();
-            //services.AddDbContext<PlanetContext>(opt =>
-            //                                  opt.UseInMemoryDatabase("PlanetList"));
-            //services.AddDbContext<LodgingContext>(opt =>
-            //                                   opt.UseInMemoryDatabase("LodgingList"));
-            //services.AddDbContext<EventContext>(opt =>
-            //                                  opt.UseInMemoryDatabase("EventList"));
-            //services.AddDbContext<TripContext>(opt =>
-            //                                   opt.UseInMemoryDatabase("TripList"));
-            //services.AddDbContext<TravelContext>(opt =>
-            //                                   opt.UseInMemoryDatabase("TravelTypeList"));
+                services.AddScoped<IPlanetDataRepository, SQLPlanetDataRepository>();
+                services.AddScoped<ILodgingDataRepository, SQLLodgingDataRepository>();
+                services.AddScoped<IEventDataRepository, SQLEventDataRepository>();
+            } else
+            {
+                services.AddDbContext<PlanetContext>(opt =>
+                                                  opt.UseInMemoryDatabase("PlanetList"));
+                services.AddDbContext<LodgingContext>(opt =>
+                                                   opt.UseInMemoryDatabase("LodgingList"));
+                services.AddDbContext<IEventContextDepository>(opt =>
+                                                  opt.UseInMemoryDatabase("EventList"));
+                services.AddDbContext<TripContext>(opt =>
+                                                   opt.UseInMemoryDatabase("TripList"));
+                services.AddDbContext<TravelContext>(opt =>
+                                                   opt.UseInMemoryDatabase("TravelTypeList"));
+            }
 
             services.AddSwaggerGen(c =>
             {
