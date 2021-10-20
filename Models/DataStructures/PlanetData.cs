@@ -29,5 +29,9 @@ namespace gttgBackend.Models
         public string PlanetName { get; set; }
         public string PlanetDescription { get; set; }
 
+        public override string ToString()
+        {
+            return "Planet: " + PlanetName + " " + PlanetDataID + " " + PlanetDescription;
+        }
     }
 }
