@@ -4,6 +4,8 @@ using gttgBackend.Models.Interfaces;
 using NSubstitute;
 using NUnit.Framework;
 
+using System.Linq;
+
 namespace gttgBackendTests
 {
     public class PlanetControllerTests
@@ -34,7 +36,14 @@ namespace gttgBackendTests
         [Test]
         public void TestGetPlanetDataShouldReturnNotNull()
         {
-            var planet = planetController.GetPLanetList();
+            System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<System.Collections.Generic.IEnumerable<gttgBackend.Models.PlanetData>>> planet = planetController.GetPLanetList();
+            System.Console.WriteLine(planet);
+            System.Console.WriteLine(planet.Status);
+            System.Console.WriteLine(planet.IsCompleted);
+            System.Console.WriteLine(planet.Result);
+            if (planet.Result == null)
+                System.Console.WriteLine("null");
+            System.Console.WriteLine("what?");
             Assert.IsNotNull(planet);
         }
     }
