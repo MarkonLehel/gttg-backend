@@ -52,6 +52,7 @@ namespace gttgBackend
             services.AddScoped<ILodgingDataRepository, SQLLodgingDataRepository>();
             services.AddScoped<IEventDataRepository, SQLEventDataRepository>();
             services.AddScoped<ITravelTypeRepository, SQLTravelTypeRepository>();
+            services.AddScoped<ITripDataRepository, SQLTripDataRepository>();
             //services.AddDbContext<PlanetContext>(opt =>
             //                                  opt.UseInMemoryDatabase("PlanetList"));
             //services.AddDbContext<LodgingContext>(opt =>
